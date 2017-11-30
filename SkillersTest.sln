@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGenerator", "DataGenerator\DataGenerator.csproj", "{8FAD3DF3-BA4F-42BC-AAF7-2B326D976DA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSorter", "DataSorter\DataSorter.csproj", "{BE12C9D0-CCD2-4F80-8F6E-F1BBFC3957EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{534D0EA7-5D2E-4824-B6B5-12FCFD36D17D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FAD3DF3-BA4F-42BC-AAF7-2B326D976DA0}.Debug|x86.ActiveCfg = Debug|x86
+		{8FAD3DF3-BA4F-42BC-AAF7-2B326D976DA0}.Debug|x86.Build.0 = Debug|x86
+		{8FAD3DF3-BA4F-42BC-AAF7-2B326D976DA0}.Release|x86.ActiveCfg = Release|x86
+		{8FAD3DF3-BA4F-42BC-AAF7-2B326D976DA0}.Release|x86.Build.0 = Release|x86
+		{BE12C9D0-CCD2-4F80-8F6E-F1BBFC3957EB}.Debug|x86.ActiveCfg = Debug|x86
+		{BE12C9D0-CCD2-4F80-8F6E-F1BBFC3957EB}.Debug|x86.Build.0 = Debug|x86
+		{BE12C9D0-CCD2-4F80-8F6E-F1BBFC3957EB}.Release|x86.ActiveCfg = Release|x86
+		{BE12C9D0-CCD2-4F80-8F6E-F1BBFC3957EB}.Release|x86.Build.0 = Release|x86
+		{534D0EA7-5D2E-4824-B6B5-12FCFD36D17D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{534D0EA7-5D2E-4824-B6B5-12FCFD36D17D}.Debug|x86.Build.0 = Debug|Any CPU
+		{534D0EA7-5D2E-4824-B6B5-12FCFD36D17D}.Release|x86.ActiveCfg = Release|Any CPU
+		{534D0EA7-5D2E-4824-B6B5-12FCFD36D17D}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
