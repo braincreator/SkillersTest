@@ -20,7 +20,7 @@ namespace SkillersTest.DataGenerator
             //    var data = generator.GenerateNewDataItem();
             //    var s = i;
             //}
-            var bytes = generator.Generate(1024 * 1024 * 100);
+            var bytes = generator.Generate(1024 * 1024 * 1000);
             File.WriteAllBytes(fileName, bytes);
             var lines = File.ReadLines(fileName);
             watch.Stop();

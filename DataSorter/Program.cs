@@ -20,6 +20,7 @@ namespace SkillersTest.DataSorter
             {
                 elems.Add(DataItem.FromString(line));
             }
+
             var comparer = Comparer<DataItem>.Create((DataItem x, DataItem y) => {
                 int result = string.Compare(x.Text, y.Text, StringComparison.Ordinal);
                 if (result == 0)
@@ -28,26 +29,24 @@ namespace SkillersTest.DataSorter
                 }
                 return result;
             });
-            var resultingArray = elems.ToArray(); 
+       
             Stopwatch watch = new Stopwatch();
 
-            //watch.Start();
-            //Sorter.Quicksort(resultingArray, 0, elems.Count - 1, comparer);
-            //watch.Stop();
-            //Console.WriteLine($"QuickSort: {watch.Elapsed}");
-
             watch.Start();
-            Sorter.MergeSort(resultingArray, 0, elems.Count - 1,  comparer);
+            Sorter.QuicksortParallel(elems, 0, elems.Count - 1, comparer);
             watch.Stop();
-            Console.WriteLine($"MergeSort: {watch.Elapsed}");
+            Console.WriteLine($"QuicksortParallel: {watch.Elapsed}");
+
+         
 
             //watch.Restart();
-            //Sorter.InsertionSort(resultingArray, comparer);
+            //Sorter.Quicksort(elems, 0, elems.Count - 1, comparer);
             //watch.Stop();
-            //Console.WriteLine($"InsertionSort: {watch.Elapsed}");
-            for (int i = 0; i < 1000; i++)
+            //Console.WriteLine($"Quicksort: {watch.Elapsed}");
+
+            for (int i = 480000; i < 500000; i++)
             {
-                Console.WriteLine(resultingArray[i]);
+                Console.WriteLine(elems[i]);
             }
         }
 
