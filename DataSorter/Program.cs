@@ -10,18 +10,11 @@ namespace SkillersTest.DataSorter
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            //Sorter sorter = new Sorter();
+            var inputFileName = @"../../../1.txt";
+            var outputFileName = @"../../../2.txt";
 
-            var fileName = @"../../../1.txt";
-            var lines = File.ReadLines(fileName);
-            List<DataItem> elems = new List<DataItem>();
-            foreach (var line in lines)
+            var comparer = Comparer<DataItem>.Create((DataItem x, DataItem y) =>
             {
-                elems.Add(DataItem.FromString(line));
-            }
-
-            var comparer = Comparer<DataItem>.Create((DataItem x, DataItem y) => {
                 int result = string.Compare(x.Text, y.Text, StringComparison.Ordinal);
                 if (result == 0)
                 {
@@ -29,27 +22,46 @@ namespace SkillersTest.DataSorter
                 }
                 return result;
             });
-       
+
+            //Test();
+
+            HugeFileSort sorter = new HugeFileSort();
+            sorter.Comparer = comparer;
+
             Stopwatch watch = new Stopwatch();
 
+            Console.WriteLine("Sorting Started!");
             watch.Start();
-            Sorter.QuicksortParallel(elems, 0, elems.Count - 1, comparer);
+            sorter.Sort(inputFileName, outputFileName);
             watch.Stop();
-            Console.WriteLine($"QuicksortParallel: {watch.Elapsed}");
+            Console.WriteLine($"Sorting time: {watch.Elapsed}");
 
-         
-
-            //watch.Restart();
-            //Sorter.Quicksort(elems, 0, elems.Count - 1, comparer);
-            //watch.Stop();
-            //Console.WriteLine($"Quicksort: {watch.Elapsed}");
-
-            for (int i = 480000; i < 500000; i++)
-            {
-                Console.WriteLine(elems[i]);
-            }
+            //for (int i = 480000; i < 500000; i++)
+            //{
+            //    Console.WriteLine(elems[i]);
+            //}
         }
 
+        public static void Test()
+        {
+            var inputFileName = @"../../../1.txt";
+            var outputFileName = @"../../../2.txt";
+
+            using (var reader = new StreamReader(inputFileName))
+            {
+                reader.BaseStream.Position = 0;
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    if (line != null)
+                        if (line.Contains("\0"))
+                        {
+                            Console.WriteLine(line);
+                        }
+                }
+            }
+            Console.WriteLine("Test finished!");
+        }
 
     }
 }

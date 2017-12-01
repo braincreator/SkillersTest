@@ -15,14 +15,7 @@ namespace SkillersTest.DataGenerator
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    var data = generator.GenerateNewDataItem();
-            //    var s = i;
-            //}
-            var bytes = generator.Generate(1024 * 1024 * 1000);
-            File.WriteAllBytes(fileName, bytes);
-            var lines = File.ReadLines(fileName);
+            generator.Generate(1024 * 1024 * 1000, fileName);
             watch.Stop();
             Console.WriteLine(watch.Elapsed);
             //File.Delete(fileName);

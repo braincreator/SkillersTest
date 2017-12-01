@@ -9,6 +9,7 @@ namespace SkillersTest.DataGenerator
     {
         const int MinNumber = 1;
         const int MaxNumber = 1000000;
+        int MaxRamUsage = 1024 * 1024 * 1000;
 
         string[] Fruits = { "Apple", "Banana", "Lemon", "Grape", "Orange", "Strawberry", "Kiwi" };
         string[] Properties = { "red", "yellow", "green", "blue", "orange", "big", "small", "the best", "godlike" };
@@ -26,27 +27,42 @@ namespace SkillersTest.DataGenerator
             MainStringBuilder.Clear();
             var number = Rnd.Next(MinNumber, MaxNumber);
             MainStringBuilder.Append(number).Append(". ");
-            return MainStringBuilder.AppendLine(Rnd.Next(MinNumber, MaxNumber) < MaxNumber / 2 ? Fruits[Rnd.Next(0, Fruits.Length - 1)] : $"{Fruits[Rnd.Next(0, Fruits.Length - 1)]} is {Properties[Rnd.Next(0, Properties.Length - 1)]}").ToString();
+            return MainStringBuilder.Append(Rnd.Next(MinNumber, MaxNumber) < MaxNumber / 2 ? Fruits[Rnd.Next(0, Fruits.Length - 1)] : $"{Fruits[Rnd.Next(0, Fruits.Length - 1)]} is {Properties[Rnd.Next(0, Properties.Length - 1)]}").ToString();
         }
 
-        public byte[] Generate(Int64 desiredArraySize)
+        public void Generate(Int64 desiredArraySize, string fileName)
         {
             Int64 currentSize = 0;
-            byte[] output;
-
-            using (MemoryStream stream = new MemoryStream())
+            int tempSize = 0;
+            using (FileStream fs = new FileStream(fileName, FileMode.Create))
+            using (BinaryWriter writer = new BinaryWriter(fs))
             {
-                while (currentSize < desiredArraySize)
+                //sw.AutoFlush = false;
+                using (MemoryStream stream = new MemoryStream())
                 {
-                    var item = GenerateNewDataItem();
-                    var bytes = Encoding.Default.GetBytes(item);
-                    var size = bytes.Length;
-                    currentSize += size;
-                    stream.Write(bytes, 0, size);
+                    while (currentSize < desiredArraySize)
+                    {
+                        var item = GenerateNewDataItem();
+                        if (item.Contains("\0"))
+                        {
+                            Console.WriteLine("Warning!");
+                        }
+                        var bytes = Encoding.Default.GetBytes(item);
+                        var size = bytes.Length;
+                        currentSize += size;
+                        tempSize += size;
+                        stream.Write(bytes, 0, size);
+
+                        if (tempSize >= MaxRamUsage / 2)
+                        {
+                            writer.Write(stream.GetBuffer());
+                            stream.SetLength(0);
+                            //writer.Flush();
+                            tempSize = 0;
+                        }
+                    }
                 }
-                output = stream.ToArray();
             }
-            return output;
         }
     }
 }

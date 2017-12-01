@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
+using SkillersTest.Common;
 
 namespace SkillersTest.DataSorter
 {
     public class Sorter
     {
-        public Sorter()
-        {
-           
-        }
-
         public static void InsertionSort<T>(IList<T> elements, Comparer<T> comparer)
         {
             for (var counter = 0; counter < elements.Count - 1; counter++)
@@ -75,9 +73,6 @@ namespace SkillersTest.DataSorter
                 Quicksort(elements, i, right, comparer);
             }
         }
-
-
-
 
 
         /// <summary>
@@ -189,6 +184,6 @@ namespace SkillersTest.DataSorter
                     () => QuicksortParallel(arr, pivot + 1, right, comparer));
             }
         }
-    
+
     }
 }
